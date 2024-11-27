@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class PessoaService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PessoaService.class); // Logger para a classe
+    private static final Logger logger = LoggerFactory.getLogger(PessoaService.class); 
     private final PessoaRepository pessoaRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -25,23 +25,23 @@ public class PessoaService {
     }
 
     public PessoaDTO criarPessoa(PessoaDTO pessoaDTO) {
-        logger.info("Criando nova pessoa com nome: {}", pessoaDTO.getNome()); // Log de criação de pessoa
+        logger.info("Criando nova pessoa com nome: {}", pessoaDTO.getNome()); 
 
-        // Criação de um novo usuário com senha e role
+        
         Pessoa pessoa = new Pessoa();
         pessoa.setNome(pessoaDTO.getNome());
         pessoa.setEmail(pessoaDTO.getEmail());
-        pessoa.setSenha(passwordEncoder.encode(pessoaDTO.getSenha())); // Codificando a senha
-        pessoa.setRole(Role.USER); // Definindo o role do usuário com a enum Role (ROLE_USER)
+        pessoa.setSenha(passwordEncoder.encode(pessoaDTO.getSenha())); 
+        pessoa.setRole(Role.USER); 
         Pessoa pessoaSalva = pessoaRepository.save(pessoa);
 
-        logger.info("Pessoa criada com sucesso, ID: {}", pessoaSalva.getId()); // Log após criação
+        logger.info("Pessoa criada com sucesso, ID: {}", pessoaSalva.getId()); 
 
         return new PessoaDTO(pessoaSalva.getId(), pessoaSalva.getNome(), pessoaSalva.getEmail(), pessoaSalva.getRole());
     }
 
     public List<PessoaDTO> listarPessoas() {
-        logger.info("Listando todas as pessoas"); // Log de listagem de pessoas
+        logger.info("Listando todas as pessoas");
 
         return pessoaRepository.findAll().stream()
                 .map(pessoa -> new PessoaDTO(pessoa.getId(), pessoa.getNome(), pessoa.getEmail(), pessoa.getRole()))
@@ -49,11 +49,11 @@ public class PessoaService {
     }
 
     public PessoaDTO buscarPorId(Long id) {
-        logger.info("Buscando pessoa com ID: {}", id); // Log de busca por ID
+        logger.info("Buscando pessoa com ID: {}", id); 
 
         Pessoa pessoa = pessoaRepository.findById(id)
                 .orElseThrow(() -> {
-                    logger.error("Pessoa não encontrada com ID: {}", id); // Log de erro caso a pessoa não seja encontrada
+                    logger.error("Pessoa não encontrada com ID: {}", id); 
                     return new RuntimeException("Pessoa não encontrada.");
                 });
         
@@ -61,33 +61,33 @@ public class PessoaService {
     }
 
     public PessoaDTO atualizarPessoa(Long id, PessoaDTO pessoaDTO) {
-        logger.info("Atualizando pessoa com ID: {}", id); // Log de atualização
+        logger.info("Atualizando pessoa com ID: {}", id); 
 
         Pessoa pessoa = pessoaRepository.findById(id)
                 .orElseThrow(() -> {
-                    logger.error("Pessoa não encontrada com ID: {}", id); // Log de erro caso a pessoa não seja encontrada
+                    logger.error("Pessoa não encontrada com ID: {}", id); 
                     return new RuntimeException("Pessoa não encontrada.");
                 });
         pessoa.setNome(pessoaDTO.getNome());
         pessoa.setEmail(pessoaDTO.getEmail());
-        pessoa.setRole(pessoaDTO.getRole()); // Atualizando o role
+        pessoa.setRole(pessoaDTO.getRole());
         Pessoa pessoaAtualizada = pessoaRepository.save(pessoa);
 
-        logger.info("Pessoa com ID: {} atualizada com sucesso", pessoaAtualizada.getId()); // Log após atualização
+        logger.info("Pessoa com ID: {} atualizada com sucesso", pessoaAtualizada.getId()); 
 
         return new PessoaDTO(pessoaAtualizada.getId(), pessoaAtualizada.getNome(), pessoaAtualizada.getEmail(), pessoaAtualizada.getRole());
     }
 
     public void deletarPessoa(Long id) {
-        logger.info("Deletando pessoa com ID: {}", id); // Log de exclusão
+        logger.info("Deletando pessoa com ID: {}", id);
 
         Pessoa pessoa = pessoaRepository.findById(id)
                 .orElseThrow(() -> {
-                    logger.error("Pessoa não encontrada com ID: {}", id); // Log de erro caso a pessoa não seja encontrada
+                    logger.error("Pessoa não encontrada com ID: {}", id); 
                     return new RuntimeException("Pessoa não encontrada.");
                 });
         pessoaRepository.delete(pessoa);
 
-        logger.info("Pessoa com ID: {} deletada com sucesso", id); // Log após exclusão
+        logger.info("Pessoa com ID: {} deletada com sucesso", id);
     }
 }

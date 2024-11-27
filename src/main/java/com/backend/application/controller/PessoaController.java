@@ -4,7 +4,7 @@ import com.backend.application.dto.PessoaDTO;
 import com.backend.application.dto.LoginRequestDTO;
 import com.backend.application.dto.LoginResponseDTO;
 import com.backend.application.service.PessoaService;
-import com.backend.application.service.AuthService; // Importar AuthService
+import com.backend.application.service.AuthService; 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +15,11 @@ import java.util.List;
 public class PessoaController {
 
     private final PessoaService pessoaService;
-    private final AuthService authService; // Injetar AuthService
+    private final AuthService authService; 
 
     public PessoaController(PessoaService pessoaService, AuthService authService) {
         this.pessoaService = pessoaService;
-        this.authService = authService; // Injetar AuthService
+        this.authService = authService; 
     }
 
     @PostMapping

@@ -14,7 +14,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtils;
 
-    // Removendo o campo pessoaRepository, já que não está sendo usado
+    
     public AuthService(AuthenticationManager authenticationManager, JwtUtil jwtUtils) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
@@ -27,7 +27,7 @@ public class AuthService {
         );
 
         // Gerar token JWT
-        String token = jwtUtils.generateToken(authentication.getName()); // Gerando token usando o nome de usuário
+        String token = jwtUtils.generateToken(authentication.getName()); 
 
         // Retornar token
         return new LoginResponseDTO(token);
